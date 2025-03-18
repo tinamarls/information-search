@@ -22,3 +22,39 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# Папки с настройками проекта
+.idea/
+
+# Файлы рабочей среды и кэши
+*.iml
+*.iws
+*.ipr
+out/
+
+# Каталог скомпилированных классов
+bin/
+build/
+target/
+
+# Лог-файлы Gradle/Maven
+*.log
+
+# Кэш зависимостей Gradle/Maven
+.gradle/
+.mvn/
