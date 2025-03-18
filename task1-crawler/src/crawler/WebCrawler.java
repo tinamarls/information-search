@@ -12,23 +12,22 @@ import java.util.Queue;
 import java.util.Set;
 
 public class WebCrawler {
-    private static final String BASE_URL = "https://ru.wikipedia.org/wiki/"; // Измени на нужный сайт
+    private static final String BASE_URL = "https://lenta.ru";
     private static final int MAX_PAGES = 100;
     private static final String OUTPUT_DIR = "task1-crawler/downloaded_pages";
 
     public static void main(String[] args) {
-        new File(OUTPUT_DIR).mkdirs(); // Создаем директорию для сохранения страниц
-        Set<String> visitedUrls = new HashSet<>(); // Храним уже посещенные ссылки, чтобы избежать дубликатов
-        Queue<String> urlQueue = new LinkedList<>(); // Очередь ссылок для обхода
-        urlQueue.add(BASE_URL); // Начинаем с базового URL
+        new File(OUTPUT_DIR).mkdirs();
+        Set<String> visitedUrls = new HashSet<>();
+        Queue<String> urlQueue = new LinkedList<>();
+        urlQueue.add(BASE_URL);
 
         try (BufferedWriter indexWriter = new BufferedWriter(new FileWriter(OUTPUT_DIR + "/index.txt"))) {
             int fileCount = 1;
 
-            while (!urlQueue.isEmpty() && fileCount <= MAX_PAGES) { // 1. Скачиваем минимум 100 страниц
-                String url = urlQueue.poll(); // Берем следующую ссылку из очереди
-                if (visitedUrls.contains(url)) continue; // Пропускаем, если уже посещали
-
+            while (!urlQueue.isEmpty() && fileCount <= MAX_PAGES) {
+                String url = urlQueue.poll();
+                if (visitedUrls.contains(url)) continue;
                 try {
                     Document doc = Jsoup.connect(url).get();
 
