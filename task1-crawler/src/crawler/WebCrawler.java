@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class WebCrawler {
     private static final String BASE_URL = "https://lenta.ru";
-    private static final int MAX_PAGES = 100;
+    private static final int MAX_PAGES = 150;
     private static final String OUTPUT_DIR = "task1-crawler/downloaded_pages";
     private static final String INDEX_FILE = "task1-crawler/index.txt";
 
