@@ -30,9 +30,13 @@ def tokenize_and_filter(text):
     tokens = wordpunct_tokenize(text.lower())
     return [token for token in tokens if re.match(r'^[а-яА-ЯёЁ]+$', token) and token not in stop_words]
 
-# Функция для лемматизации токенов
-def lemmatize_tokens(tokens):
-    return {token: morph.parse(token)[0].normal_form for token in tokens}
+# Функция для лемматизации и группировки токенов по леммам
+def lemmatize_and_group(tokens):
+    lemmatized_tokens = defaultdict(set)
+    for token in tokens:
+        lemma = morph.parse(token)[0].normal_form
+        lemmatized_tokens[lemma].add(token)
+    return lemmatized_tokens
 
 # Функция для записи токенов в файл
 def write_tokens_to_file(tokens, file_name):
@@ -42,8 +46,8 @@ def write_tokens_to_file(tokens, file_name):
 # Функция для записи лемматизированных токенов в файл
 def write_lemmatized_tokens_to_file(lemmatized_tokens, file_name):
     with open(file_name, 'w', encoding='utf-8') as f:
-        for token, lemma in lemmatized_tokens.items():
-            f.write(f"{token} {lemma}\n")
+        for lemma, tokens in lemmatized_tokens.items():
+            f.write(f"{lemma} {' '.join(tokens)}\n")
 
 def process_documents():
     for filename in os.listdir(html_directory):
@@ -52,7 +56,7 @@ def process_documents():
             text = extract_text_from_html(file_path)
 
             tokens = tokenize_and_filter(text)
-            lemmatized_tokens = lemmatize_tokens(tokens)
+            lemmatized_tokens = lemmatize_and_group(tokens)
 
             tokens_output_path = os.path.join(tokens_output_directory, f"tokens_{filename}.txt")
             lemmatized_output_path = os.path.join(lemmatized_output_directory, f"lemmatized_{filename}.txt")
