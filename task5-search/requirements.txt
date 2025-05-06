@@ -2,3 +2,4 @@ natasha
 scipy
 numpy
 nltk
+flask

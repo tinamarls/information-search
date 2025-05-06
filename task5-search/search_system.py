@@ -3,8 +3,9 @@ import natasha
 import numpy
 import os
 
-TF_IDF_LEMMAS_PATH = '/Users/kristina/IdeaProjects/information-search/task4-tf-idf/tf-idf-output/lemmas/'
-INDEX_PATH = '/Users/kristina/IdeaProjects/information-search/task1-crawler/index.txt'
+# Используем относительные пути
+TF_IDF_LEMMAS_PATH = '../task4-tf-idf/tf-idf-output/lemmas/'
+INDEX_PATH = '../task1-crawler/index.txt'
 
 
 def load_urls():

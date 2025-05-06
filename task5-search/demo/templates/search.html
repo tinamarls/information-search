@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Векторный поиск</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .search-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .result-url {
+            color: #1a0dab;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .result-url:hover {
+            text-decoration: underline;
+        }
+        .result-score {
+            color: #666;
+            font-size: 14px;
+        }
+        .no-results {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>Векторный поиск</h1>
+        <form class="search-form" method="POST">
+            <input type="text" name="query" value="{{ query }}" placeholder="Введите поисковый запрос..." required>
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="results">
+        <h2>Результаты поиска</h2>
+        {% for url, score in results %}
+        <div class="result-item">
+            <a href="{{ url }}" class="result-url" target="_blank">{{ url }}</a>
+            <div class="result-score">Релевантность: {{ "%.4f"|format(score) }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif query %}
+    <div class="results">
+        <div class="no-results">По вашему запросу ничего не найдено</div>
+    </div>
+    {% endif %}
+</body>
+</html> 
